@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sportify </title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            color: #e63946;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+        .animation-container {
+            display: flex;
+            font-size: 6rem;
+            font-weight: bold; /* Bold text */
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        .letter {
+            opacity: 0;
+            transform: scale(0.5);
+            animation: appear 1.5s forwards;
+        }
+        .letter:nth-child(1) { animation-delay: 0.1s; }
+        .letter:nth-child(2) { animation-delay: 0.3s; }
+        .letter:nth-child(3) { animation-delay: 0.5s; }
+        .letter:nth-child(4) { animation-delay: 0.7s; }
+        .letter:nth-child(5) { animation-delay: 0.9s; }
+        .letter:nth-child(6) { animation-delay: 1.1s; }
+        .letter:nth-child(7) { animation-delay: 1.3s; }
+        .letter:nth-child(8) { animation-delay: 1.5s; }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes appear {
+            0% { opacity: 0; transform: scale(0.5); color: red; } /* Red */
+            100% { opacity: 1; transform: scale(1); color: #e30013; }
+        }
+    </style>
+</head>
+<body>
+    <div class="animation-container">
+        <span class="letter">S</span>
+        <span class="letter">P</span>
+        <span class="letter">O</span>
+        <span class="letter">R</span>
+        <span class="letter">T</span>
+        <span class="letter">I</span>
+        <span class="letter">F</span>
+        <span class="letter">Y</span>
+    </div>
+    <script>
+        setTimeout(() => {
+            sessionStorage.setItem('animationShown', 'true');
+            window.location.href = "{{ url_for('index') }}";
+        }, 4000);
+    </script>
+</body>
+</html> 

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title_block %}Admin Login | Sportify{% endblock %}
+
+{% block styles %}
+<style>
+    .admin-login-container {
+        max-width: 500px;
+        margin: 80px auto;
+        padding: 30px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+    
+    .admin-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    
+    .admin-header h2 {
+        font-weight: 600;
+        color: #333;
+    }
+    
+    .form-label {
+        font-weight: 500;
+    }
+    
+    .admin-btn {
+        width: 100%;
+        padding: 10px;
+        font-weight: 500;
+    }
+</style>
+{% endblock %}
+
+{% block main_block %}
+<div class="container">
+    <div class="admin-login-container">
+        <div class="admin-header">
+            <h2>Admin Login</h2>
+            <p class="text-muted">Enter admin credentials to access the dashboard</p>
+        </div>
+        
+        <form method="POST" action="{{ url_for('admin_login') }}">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+                <div class="form-text">Default: admin@sportify.com</div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            
+            <button type="submit" class="btn btn-dark admin-btn">Login</button>
+        </form>
+        
+        <div class="mt-4 text-center">
+            <a href="{{ url_for('index') }}" class="text-decoration-none">Back to Homepage</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
