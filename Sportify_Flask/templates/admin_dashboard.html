@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title_block %}Admin Dashboard | Sportify{% endblock %}
+
+{% block styles %}
+<style>
+    .admin-header {
+        background-color: #f8f9fa;
+        padding: 20px 0;
+        margin-bottom: 30px;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .admin-title {
+        font-weight: 600;
+    }
+    
+    .admin-actions {
+        margin-bottom: 30px;
+    }
+    
+    .product-card {
+        transition: all 0.3s ease;
+        margin-bottom: 20px;
+    }
+    
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .category-title {
+        margin: 30px 0 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #eee;
+        text-transform: capitalize;
+    }
+    
+    .product-image {
+        height: 200px;
+        object-fit: cover;
+    }
+    
+    .card-footer {
+        background-color: white;
+        border-top: none;
+    }
+    
+    .admin-logout {
+        color: #dc3545;
+    }
+</style>
+{% endblock %}
+
+{% block main_block %}
+<div class="admin-header">
+    <div class="container d-flex justify-content-between align-items-center">
+        <h2 class="admin-title mb-0">Admin Dashboard</h2>
+        <div>
+            <a href="{{ url_for('admin_logout') }}" class="btn btn-outline-danger">Logout</a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="admin-actions">
+        <a href="{{ url_for('add_product') }}" class="btn btn-success">
+            <i class="fas fa-plus"></i> Add New Product
+        </a>
+    </div>
+    
+    {% for category, category_products in products.items() %}
+        {% if category_products %}
+            <h3 class="category-title">{{ category }} ({{ category_products|length }} products)</h3>
+            
+            <div class="row">
+                {% for product in category_products %}
+                <div class="col-md-3">
+                    <div class="card product-card">
+                        <img src="{{ url_for('static', filename=product.image.replace('static/', '')) }}" 
+                             class="card-img-top product-image" alt="{{ product.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.title }}</h5>
+                            <p class="card-text text-truncate">{{ product.description }}</p>
+                            <p class="card-text"><strong>Price:</strong> {{ product.price }}</p>
+                            <p class="card-text"><strong>Stock:</strong> {{ product.stock }}</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="{{ url_for('edit_product', product_id=product.id) }}" class="btn btn-sm btn-primary">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <form action="{{ url_for('delete_product', product_id=product.id) }}" method="POST" 
+                                  onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

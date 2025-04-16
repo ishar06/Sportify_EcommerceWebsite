@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title_block %}Edit Product | Admin{% endblock %}
+
+{% block styles %}
+<style>
+    .form-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 30px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+    
+    .form-title {
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .product-image-preview {
+        max-height: 200px;
+        object-fit: contain;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        padding: 5px;
+    }
+    
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #000;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .btn-actions {
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block main_block %}
+<div class="container">
+    <div class="form-container">
+        <h2 class="form-title">Edit Product</h2>
+        
+        <div class="text-center">
+            <img src="{{ url_for('static', filename=product.image.replace('static/', '')) }}" 
+                 class="product-image-preview" alt="{{ product.title }}">
+        </div>
+        
+        <form action="{{ url_for('edit_product', product_id=product.id) }}" method="POST">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="category">Category*</label>
+                        <input type="text" class="form-control" value="{{ category|capitalize }}" readonly>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="title">Product Title*</label>
+                        <input type="text" class="form-control" id="title" name="title" value="{{ product.title }}" required>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description*</label>
+                <textarea class="form-control" id="description" name="description" rows="3" required>{{ product.description }}</textarea>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="price">Price* (without /-)</label>
+                        <input type="text" class="form-control" id="price" name="price" value="{{ form_price }}" required>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="stock">Stock*</label>
+                        <input type="number" class="form-control" id="stock" name="stock" value="{{ product.stock }}" min="0" required>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="image">Image Path*</label>
+                <input type="text" class="form-control" id="image" name="image" value="{{ product.image }}" required>
+                <small class="form-text text-muted">Path must start with 'static/images/'</small>
+            </div>
+            
+            <div class="btn-actions">
+                <button type="submit" class="btn btn-primary">Update Product</button>
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary ml-2">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
