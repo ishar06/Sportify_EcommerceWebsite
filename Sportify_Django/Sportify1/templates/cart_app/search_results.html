@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Results | Sportify{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Search Results for "{{ query }}"</h1>
+
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.title }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.title }}</h5>
+                <p class="card-text">{{ product.description }}</p>
+                <p class="card-text"><strong>{{ product.get_formatted_price }}</strong></p>
+                <form method="post" action="{% url 'add_to_cart' product.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info">
+            No products found matching "{{ query }}". Try a different search term or <a href="{% url 'index' %}">browse our categories</a>.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

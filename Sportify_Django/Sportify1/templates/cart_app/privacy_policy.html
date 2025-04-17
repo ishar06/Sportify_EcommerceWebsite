@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %}Privacy Policy | Sportify{% endblock %}
+
+{% block extra_css %}
+<style>
+    body {
+        background: linear-gradient(to bottom right, #f0f9ff, #e0f7fa);
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 0.75);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .glass-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .policy-section {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 0.8s ease-out forwards;
+    }
+
+    .policy-section:nth-child(even) {
+        animation-delay: 0.2s;
+    }
+
+    .policy-section:nth-child(odd) {
+        animation-delay: 0.4s;
+    }
+
+    @keyframes fadeUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .policy-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-align: center;
+        color: #0077b6;
+        margin-bottom: 30px;
+        text-shadow: 1px 1px 1px #ccc;
+    }
+
+    .policy-heading {
+        font-size: 1.5rem;
+        color: #023e8a;
+        margin-top: 20px;
+        transition: color 0.3s ease;
+    }
+
+    .policy-heading:hover {
+        color: #0077b6;
+    }
+
+    .highlight {
+        color: #0077b6;
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="policy-title">Our Privacy Promise to You</h2>
+    <div class="glass-card shadow-lg">
+
+        <div class="policy-section">
+            <h4 class="policy-heading">1. Introduction</h4>
+            <p>Welcome to <span class="highlight">Sportify</span>. Your privacy matters. This policy explains how we collect, use, and protect your data.</p>
+        </div>
+
+        <div class="policy-section">
+            <h4 class="policy-heading">2. Information We Collect</h4>
+            <p>Details like your name, email, address, and payment info help us complete orders and improve your experience.</p>
+        </div>
+
+        <div class="policy-section">
+            <h4 class="policy-heading">3. How We Use It</h4>
+            <p>From order fulfillment to personalized recommendations – your data helps us serve you better. We never sell your info.</p>
+        </div>
+
+        <div class="policy-section">
+            <h4 class="policy-heading">4. Cookies & Tracking</h4>
+            <p>We use cookies to personalize your experience. You’re always in control – adjust settings in your browser anytime.</p>
+        </div>
+
+        <div class="policy-section">
+            <h4 class="policy-heading">5. Data Protection</h4>
+            <p>We use modern encryption and secure servers to keep your information safe and private.</p>
+        </div>
+
+        <div class="policy-section">
+            <h4 class="policy-heading">6. Third-Party Services</h4>
+            <p>We may share your data with partners like payment gateways – but only what's necessary and always securely.</p>
+        </div>
+
+        <div class="policy-section">
+            <h4 class="policy-heading">7. Your Rights</h4>
+            <p>Want to update or delete your info? Just email us at <span class="highlight">privacy@sportify.com</span>.</p>
+        </div>
+
+        <div class="policy-section">
+            <h4 class="policy-heading">8. Policy Updates</h4>
+            <p>We may revise this policy. We’ll keep you informed, and continued use means you’re okay with the changes.</p>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

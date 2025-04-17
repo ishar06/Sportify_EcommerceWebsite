@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}CSR Policy | Sportify{% endblock %}
+
+{% block extra_css %}
+<style>
+    .card {
+        background: #f9f9f9;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        transform: scale(1.02);
+    }
+
+    h4 {
+        font-weight: bold;
+    }
+
+    p {
+        font-size: 1.1rem;
+        color: #555;
+    }
+
+    /* Decrease the size of the image */
+    .card img {
+        max-width: 80%;  /* Limit image width to 80% of its parent */
+        height: auto;    /* Maintain aspect ratio */
+        margin: 0 auto;  /* Center the image */
+        display: block;  /* Make the image a block element to center it */
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center mb-4">Our Corporate Social Responsibility (CSR) Policy</h2>
+    <div class="card shadow p-4 border-0 rounded">
+        <img src="https://t3.ftcdn.net/jpg/05/12/35/86/360_F_512358641_Zo7KdAF1jX0zUgtnceo4sv756mHvpOWa.jpg"
+            class="img-fluid rounded mb-4" alt="CSR Banner">
+
+        <h4 class="text-primary">1. Our Commitment to Sustainability</h4>
+        <p>Sportify is dedicated to minimizing our environmental footprint. We use sustainable materials and
+            eco-friendly packaging to promote a greener future.</p>
+        <br>
+        <h4 class="text-success">2. Ethical Sourcing & Fair Trade</h4>
+        <p>We ensure that all our products are sourced responsibly. Our suppliers adhere to fair trade standards and
+            ethical labor practices.</p>
+        <br>
+        <h4 class="text-warning">3. Community Engagement</h4>
+        <p>We believe in giving back to the community. Sportify actively supports local sports initiatives, education
+            programs, and charitable organizations.</p>
+        <br>
+        <h4 class="text-danger">4. Employee Welfare & Inclusion</h4>
+        <p>We prioritize employee well-being, diversity, and inclusivity. Our workplace fosters growth, equality, and a
+            positive working environment.</p>
+        <br>
+        <h4 class="text-info">5. Reducing Carbon Footprint</h4>
+        <p>Sportify continuously strives to reduce emissions by optimizing our supply chain and promoting eco-conscious
+            production methods.</p>
+    </div>
+</div>
+{% endblock %}

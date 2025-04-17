@@ -1,0 +1,162 @@
+
+
+
+{% extends 'base.html' %}
+
+{% block title %}Checkout | Sportify{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Checkout</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Shipping Address</h5>
+            </div>
+            <div class="card-body">
+                {% if address %}
+                    <p>
+                        <strong>{{ user.first_name }}</strong><br>
+                        {{ address.house_street }}<br>
+                        {% if address.landmark %}{{ address.landmark }}<br>{% endif %}
+                        {{ address.pincode }}, {{ address.state }}
+                    </p>
+                    <a href="{% url 'profile' %}#address-section" class="btn btn-outline-secondary btn-sm">Edit Address</a>
+                {% else %}
+                    <div class="alert alert-warning">
+                        You need to add a shipping address before proceeding to payment.
+                    </div>
+                    <a href="{% url 'profile' %}#address-section" class="btn btn-primary">Add Address</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="card mb-4 {% if not address %}disabled-section{% endif %}">
+            <div class="card-header">
+                <h5 class="mb-0">Payment Method</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{% url 'checkout' %}" id="payment-form">
+                    {% csrf_token %}
+                    
+                    <fieldset {% if not address %}disabled{% endif %}>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="payment_method" id="card" value="card" checked>
+                            <label class="form-check-label" for="card">
+                                Credit/Debit Card
+                            </label>
+                        </div>
+                        
+                        <div id="card-details" class="mb-3">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="card_number" class="form-label">Card Number</label>
+                                    <input type="text" class="form-control" id="card_number" name="card_number" placeholder="1234 5678 9012 3456" pattern="[0-9]{16}">
+                                    <small class="text-muted">16 digits, no spaces</small>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="expiry_date" class="form-label">Expiry Date</label>
+                                    <input type="text" class="form-control" id="expiry_date" name="expiry_date" placeholder="MM/YY">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="cvv" class="form-label">CVV</label>
+                                    <input type="text" class="form-control" id="cvv" name="cvv" placeholder="123" pattern="[0-9]{3}">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="card_name" class="form-label">Name on Card</label>
+                                <input type="text" class="form-control" id="card_name" name="card_name">
+                            </div>
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="payment_method" id="cod" value="cod">
+                            <label class="form-check-label" for="cod">
+                                Cash on Delivery
+                            </label>
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="payment_method" id="gift_card" value="gift_card">
+                            <label class="form-check-label" for="gift_card">
+                                Gift Card
+                            </label>
+                        </div>
+                        
+                        <div id="gift-card-details" class="mb-3 d-none">
+                            <label for="gift_card_number" class="form-label">Gift Card Number</label>
+                            <input type="text" class="form-control" id="gift_card_number" name="gift_card_number">
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="payment_method" id="coupon" value="coupon">
+                            <label class="form-check-label" for="coupon">
+                                Coupon
+                            </label>
+                        </div>
+                        
+                        <div id="coupon-details" class="mb-3 d-none">
+                            <label for="coupon_code" class="form-label">Coupon Code</label>
+                            <input type="text" class="form-control" id="coupon_code" name="coupon_code">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary mt-3">Place Order</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Order Summary</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for item in cart_items %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <span>{{ item.product.title }}</span>
+                            <small class="d-block text-muted">Quantity: {{ item.quantity }}</small>
+                        </div>
+                        <span>{{ item.get_total_price }}/-</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <span>Total:</span>
+                    <strong>{{ total }}/-</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const paymentMethods = document.querySelectorAll('input[name="payment_method"]');
+        const cardDetails = document.getElementById('card-details');
+        const giftCardDetails = document.getElementById('gift-card-details');
+        const couponDetails = document.getElementById('coupon-details');
+
+        function togglePaymentSections() {
+            cardDetails.classList.add('d-none');
+            giftCardDetails.classList.add('d-none');
+            couponDetails.classList.add('d-none');
+
+            const selected = document.querySelector('input[name="payment_method"]:checked').value;
+            if (selected === 'card') cardDetails.classList.remove('d-none');
+            if (selected === 'gift_card') giftCardDetails.classList.remove('d-none');
+            if (selected === 'coupon') couponDetails.classList.remove('d-none');
+        }
+
+        paymentMethods.forEach(method => method.addEventListener('change', togglePaymentSections));
+        togglePaymentSections(); // Initialize on page load
+    });
+</script>
+{% endblock %}
