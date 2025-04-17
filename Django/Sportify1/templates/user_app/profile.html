@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Profile - Sportify{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Your Profile</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Personal Information</h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="{{ u_form.name.id_for_label }}" class="form-label">Name</label>
+                        {{ u_form.name }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ u_form.email.id_for_label }}" class="form-label">Email</label>
+                        {{ u_form.email }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ u_form.phone_number.id_for_label }}" class="form-label">Phone Number</label>
+                        {{ u_form.phone_number }}
+                    </div>
+                    <button type="submit" name="update_user" class="btn btn-primary">Update Information</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Shipping Address</h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="{{ a_form.house_street.id_for_label }}" class="form-label">House/Street</label>
+                        {{ a_form.house_street }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ a_form.landmark.id_for_label }}" class="form-label">Landmark</label>
+                        {{ a_form.landmark }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ a_form.pincode.id_for_label }}" class="form-label">Pincode</label>
+                        {{ a_form.pincode }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ a_form.state.id_for_label }}" class="form-label">State</label>
+                        {{ a_form.state }}
+                    </div>
+                    <button type="submit" name="update_address" class="btn btn-primary">Save Address</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Recent Orders</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Order #</th>
+                                <th>Date</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in user.order_set.all|slice:":5" %}
+                            <tr>
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.order_date|date:"F j, Y" }}</td>
+                                <td>{{ order.total_amount }}/-</td>
+                                <td>
+                                    <span class="badge bg-{% if order.status == 'Delivered' %}success{% elif order.status == 'Cancelled' %}danger{% else %}primary{% endif %}">
+                                        {{ order.status }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="{% url 'order_history' %}#collapse{{ order.id }}" class="btn btn-sm btn-outline-primary">View Details</a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center">You haven't placed any orders yet.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% if user.order_set.all.count > 5 %}
+                <div class="text-center mt-3">
+                    <a href="{% url 'order_history' %}" class="btn btn-outline-primary">View All Orders</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

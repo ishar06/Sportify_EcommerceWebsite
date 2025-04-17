@@ -1,0 +1,46 @@
+video {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    
+}
+.transparent-jumbotron {
+    background-color: rgba(255, 255, 255, 0.7); /* white with 70% opacity */
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+.filter-card {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.filter-card .card-body {
+    padding: 1.5rem;
+}
+
+.filter-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.input-group {
+    gap: 10px;
+}
+
+.form-select, .form-control {
+    height: 38px;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    color: white;
+}
