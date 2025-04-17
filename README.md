@@ -17,10 +17,10 @@ We are a team of passionate developers from a tech background, striving to build
 
 | Name            | Role                                  | LinkedIn                                  |
 |-----------------|---------------------------------------|--------------------------------------------|
-| **Ishar Singh** | Team Leader, UI Developer, Flask-Django Integrator | [LinkedIn](https://www.linkedin.com/in/ishardeep-singh-743789311/) |
-| **Aryan**       | Shopping Cart & Payment Gateway, ChatBot (Flask-Django) | [LinkedIn](https://www.linkedin.com/in/aryan-verma-638594320/) |
-| **Damanjeet**   | User Authentication & Backend Logic (Flask-Django)    | [LinkedIn](https://www.linkedin.com/in/damanjeet-singh-834596316/) |
-| **Madhav**      | App Routing & Debugging (Flask-Django)               | [LinkedIn](https://www.linkedin.com/in/madhav-garg-059b4b339/) |
+| **Ishardeep Singh** | Team Leader, UI/UX Developer, Flask-Django Integrator | [LinkedIn](https://www.linkedin.com/in/ishardeep-singh-743789311/) |
+| **Aryan Verma**       | Shopping Cart & Payment Gateway, ChatBot (Flask-Django) | [LinkedIn](https://www.linkedin.com/in/aryan-verma-638594320/) |
+| **Damanjeet Singh**   | User Authentication & Backend Logic (Flask-Django)    | [LinkedIn](https://www.linkedin.com/in/damanjeet-singh-834596316/) |
+| **Madhav Garg**      | App Routing & Debugging (Flask-Django)               | [LinkedIn](https://www.linkedin.com/in/madhav-garg-059b4b339/) |
 
 
 ---
@@ -36,7 +36,7 @@ We are a team of passionate developers from a tech background, striving to build
 ✅ **Pagination & Infinite Scroll** (bonus)  
 ✅ Real-time **Flash messages** and **Modals**  
 ✅ Reusable **base.html** layout with Jinja templating  
-✅ Django version has modular apps: `UserApp`, `CartApp`
+✅ Django version has modular apps: `user_app`, `cart_app`
 
 ---
 
