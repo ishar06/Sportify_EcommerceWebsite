@@ -15,12 +15,13 @@ We are a team of passionate developers from a tech background, striving to build
 
 ### Team Members
 
-| Name            | Role                                  | LinkedIn                                  |
-|-----------------|---------------------------------------|--------------------------------------------|
-| **Ishardeep Singh** | Team Leader, UI/UX Developer, Flask-Django Integrator | [LinkedIn](https://www.linkedin.com/in/ishardeep-singh-743789311/) |
-| **Aryan Verma**       | Shopping Cart & Payment Gateway, ChatBot (Flask-Django) | [LinkedIn](https://www.linkedin.com/in/aryan-verma-638594320/) |
-| **Damanjeet Singh**   | User Authentication & Backend Logic (Flask-Django)    | [LinkedIn](https://www.linkedin.com/in/damanjeet-singh-834596316/) |
-| **Madhav Garg**      | App Routing & Debugging (Flask-Django)               | [LinkedIn](https://www.linkedin.com/in/madhav-garg-059b4b339/) |
+| Name               | Role                                           | Email                          | LinkedIn |
+|--------------------|------------------------------------------------|--------------------------------|----------|
+| **Ishardeep Singh** | Team Leader, UI/UX Developer, Flask-Django Integrator | ishardeep3195.beai24@chitkara.edu.in        | [LinkedIn](https://www.linkedin.com/in/ishardeep-singh-743789311/) |
+| **Aryan Verma**     | Shopping Cart & Payment Gateway, ChatBot (Flask-Django) | aryan3181.beai24@chitkara.edu.in      | [LinkedIn](https://www.linkedin.com/in/aryan-verma-638594320/) |
+| **Damanjeet Singh** | User Authentication & Backend Logic (Flask-Django)    | damanjeet3183.beai24@chitkara.edu.in   | [LinkedIn](https://www.linkedin.com/in/damanjeet-singh-834596316/) |
+| **Madhav Garg**     | App Routing & Debugging (Flask-Django)               | madhav3219.beai24@chitkara.edu.in      | [LinkedIn](https://www.linkedin.com/in/madhav-garg-059b4b339/) |
+
 
 
 ---
@@ -78,16 +79,26 @@ Sportify_EcommerceWebsite/
 ### For Flask Version
 
 ```bash
-cd Sportify_Flask
+python -m venv venv
+# On Windows
+venv\Scripts\activate
+# On macOS/Linux
+source venv/bin/activate
 pip install -r requirements.txt
+cd Sportify_Flask
 python app.py
 ```
 
 ### For Django Version
 
 ```bash
-cd Sportify_Django
+python -m venv venv
+# On Windows
+venv\Scripts\activate
+# On macOS/Linux
+source venv/bin/activate
 pip install -r requirements.txt
+cd Sportify_Django
 python manage.py migrate
 python manage.py runserver
 ```
