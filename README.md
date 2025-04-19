@@ -90,7 +90,9 @@ cd Sportify_Flask
 python app.py
 ```
 ADMIN LOGIN CREDENTIALS:
+
 Go the url : http://127.0.0.1:5000/admin/login
+
 Username ==> admin@sportify.com
 Password ==> admin123
 
@@ -109,6 +111,7 @@ python manage.py migrate
 python manage.py runserver
 ```
 ADMIN LOGIN CREDENTIALS:
+
 Username ==> admin@sportify.com
 Password ==> admin123
 
