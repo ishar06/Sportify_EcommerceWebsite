@@ -78,6 +78,7 @@ Sportify_EcommerceWebsite/
 
 ### For Flask Version
 
+Inside the folder Sportify_Flask perform the following terminal commands:
 ```bash
 python -m venv venv
 # On Windows
@@ -91,6 +92,7 @@ python app.py
 
 ### For Django Version
 
+Inside the folder Sportify_Django perform the following terminal commands:
 ```bash
 python -m venv venv
 # On Windows
@@ -98,7 +100,7 @@ venv\Scripts\activate
 # On macOS/Linux
 source venv/bin/activate
 pip install -r requirements.txt
-cd Sportify_Django
+cd Sportify1/
 python manage.py migrate
 python manage.py runserver
 ```
