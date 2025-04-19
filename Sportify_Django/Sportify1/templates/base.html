@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sportify{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    {% block extra_css %}{% endblock %}
+    <style>
+        footer {
+            background-color: black;
+            color: white;
+            padding: 20px 0;
+
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 10px;
+        }
+
+        .footer-container div {
+            flex: 1;
+            min-width: 200px;
+            margin: 10px;
+        }
+
+        .footer-container h3 {
+            margin-bottom: 25px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+
+        }
+
+        ul li {
+            margin: 5px 0;
+
+        }
+
+        ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        ul li a:hover {
+            color: red;
+            transition: color 0.3s ease;
+
+        }
+
+        #box {
+            background-color: transparent;
+            border: none;
+            border-bottom: 2px solid red;
+            padding: 10px;
+            width: 250px;
+            font-size: 16px;
+            color: white;
+            outline: none;
+            margin-bottom: 5px;
+        }
+
+        #box::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .newsletter button {
+            padding: 10px 15px;
+            background: none;
+            /* No background */
+            color: white;
+            /* Button text color */
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .newsletter button:hover {
+            color: red;
+        }
+
+        /* Social Icons Container */
+        .social-icons {
+            margin-top: 35px;
+            display: flex;
+            justify-content: start;
+            gap: 20px;
+        }
+
+        /* Social Media Icons */
+        .social-icons a {
+            color: white;
+            font-size: 22px;
+            transition: color 0.3s ease;
+        }
+
+        /* Hover Effects - Theme Matching */
+        .social-icons a:hover {
+            color: red;
+            scale: 1.1;
+            transition: color 0.3s ease;
+            transition: scale 0.2s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}"><strong>Sportify</strong></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for category in categories %}
+                            <li><a class="dropdown-item" href="{% url 'product_list' category.slug %}">{{ category.name
+                                    }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'blogs' %}">Blogs</a>
+                    </li>
+                    {% if user.is_authenticated and user.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://127.0.0.1:8000/admin/">Admin Dashboard</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <form class="d-flex mx-2" action="{% url 'search' %}" method="GET">
+                    <input class="form-control me-2" type="search" name="query" placeholder="Search"
+                        aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">Search</button>
+                </form>
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cart' %}">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                            {% if cart_count > 0 %}
+                            <span class="badge bg-danger">{{ cart_count }}</span>
+                            {% endif %}
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            data-bs-toggle="dropdown">
+                            {{ user.first_name|default:user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'order_history' %}">Orders</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}" data-bs-toggle="modal"
+                            data-bs-target="#loginModal">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}" data-bs-toggle="modal"
+                            data-bs-target="#registerModal">Register</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert 
+          {% if message.tags == 'success' %}
+            alert-success
+          {% elif message.tags == 'error' or message.tags == 'danger' %}
+            alert-danger
+          {% elif message.tags == 'warning' %}
+            alert-warning
+          {% elif message.tags == 'info' %}
+            alert-info
+          {% else %}
+            alert-secondary
+          {% endif %}
+          alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+
+
+
+    <!-- Main Content -->
+    <div class="container my-4">
+        {% block content %}{% endblock %}
+    </div>
+
+
+
+
+
+    <!-- Footer -->
+    <footer>
+        <!-- Existing footer content -->
+        <div class="footer-container">
+            <div class="newsletter">
+                <h3>#MoveUp by signing up</h3>
+                <form action="{% url 'subscribe' %}">
+                    {% csrf_token %}
+                    <input type="email" placeholder="Your email address" id="box" required>
+                    <button type="submit">SEND</button>
+                </form>
+                <!-- Social Icons -->
+                <div class="social-icons">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div><br>
+
+                <p>Join our newsletter for special deals, promotions, and more!</p>
+            </div>
+            <div class="company-info">
+                <h3>COMPANY INFORMATION</h3>
+                <ul>
+                    <li><a href="{% url 'about' %}">About Us</a></li>
+                    <li><a href="{% url 'tc' %}">Terms And Conditions</a></li>
+                    <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+                    <li><a href="{% url 'exchange_policy' %}">Exchange & Return Policy</a></li>
+                    <li><a href="{% url 'csr' %}">CSR</a></li>
+                    <li><a href="{% url 'blogs' %}">Blogs</a></li>
+                </ul>
+            </div>
+
+            <div class="connect" id="contact">
+                <h3>CONNECT WITH US</h3>
+                <ul>
+                    <li><a href="mailto:ishardeep3195.beai24@chitkara.edu.in">Ishardeep Singh</a> | Team Lead</li>
+                    <li><a href="mailto:damanjeet3183.beai24@chitkara.edu.in">Damanjeet Singh</a></li>
+                    <li><a href="mailto:aryan3181.beai24@chitkara.edu.in">Aryan Verma</a></li>
+                    <li><a href="mailto:madhav3219.beai24@chitkara.edu.in">Madhav Garg</a></li>
+                </ul>
+                <p>Chitkara University, Punjab | CSE-AI Students (2024-28*)</p>
+                <p>(Mon-Fri, 10:00am till 10:00pm)</p>
+                <p>This website is a prototype developed to hone our skills. For copyright or legal inquiries, please
+                    contact us above.</p>
+            </div>
+
+
+
+        </div>
+        <div class="text-center bg-danger text-white py-4 mt-5 mb-3">
+            <h6>&copy; {% now "Y" %} Sportify. All rights reserved.</h6>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ request.path }}">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Register</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{% url 'register' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phoneNumber" class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" id="phoneNumber" name="phone_number"
+                                pattern="[0-9]{10}" title="Please enter a 10-digit phone number" required>
+                            <small class="text-muted">10 digits only, no spaces or special characters</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password1" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password1" name="password1" required>
+                            <small class="text-muted">At least 8 characters with uppercase, lowercase, number, and
+                                special character</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password2" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="password2" name="password2" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/67ff631fea5f5e190c348cb9/1ioupmdd8';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

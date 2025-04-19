@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Orders | Sportify{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Your Orders</h1>
+
+{% if orders %}
+<div class="accordion" id="ordersAccordion">
+    {% for order in orders %}
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading{{ order.id }}">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ order.id }}" aria-expanded="false" aria-controls="collapse{{ order.id }}">
+                <div class="d-flex justify-content-between w-100">
+                    <span>Order #{{ order.id }} - {{ order.order_date|date:"F j, Y" }}</span>
+                    <span class="badge bg-{% if order.status == 'Delivered' %}success{% elif order.status == 'Cancelled' %}danger{% else %}primary{% endif %}">{{ order.status }}</span>
+                </div>
+            </button>
+        </h2>
+        <div id="collapse{{ order.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ order.id }}" data-bs-parent="#ordersAccordion">
+            <div class="accordion-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Order Details</h5>
+                        <p><strong>Date:</strong> {{ order.order_date|date:"F j, Y, g:i a" }}</p>
+                        <p><strong>Total Amount:</strong> {{ order.total_amount }}/-</p>
+                        <p><strong>Payment Method:</strong> {{ order.get_payment_method_display }}</p>
+                        <p><strong>Status:</strong> {{ order.status }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Shipping Address</h5>
+                        <p>{{ order.shipping_address }}</p>
+                    </div>
+                </div>
+                
+                <h5 class="mt-4">Items</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in order.items.all %}
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{ item.image_url }}" alt="{{ item.product_name }}" style="width: 50px; height: 50px; object-fit: cover;" class="me-2">
+                                        {{ item.product_name }}
+                                    </div>
+                                </td>
+                                <td>{{ item.product_price }}/-</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>{{ item.get_total_price }}/-</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info">
+    You haven't placed any orders yet. <a href="{% url 'index' %}">Start shopping</a>.
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category.name }} | Sportify{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="../../static/css/style.css">
+{% endblock %}
+
+
+{% block content %}
+<h1 class="mb-4">{{ category.name }}</h1>
+
+<!-- Filter Button -->
+<div class="filter-dropdown mb-4">
+    <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filterCollapse">
+        <i class="fas fa-filter"></i> Filters
+    </button>
+    
+    <!-- Collapsible Filter Section -->
+    <div class="collapse" id="filterCollapse">
+        <div class="card filter-card mt-2">
+            <div class="card-body">
+                <form method="get" class="row g-3">
+                    <!-- Price Range -->
+                    <div class="col-md-3">
+                        <label class="form-label">Price Range</label>
+                        <div class="input-group">
+                            <input type="number" name="min_price" class="form-control" placeholder="Min" value="{{ request.GET.min_price }}">
+                            <input type="number" name="max_price" class="form-control" placeholder="Max" value="{{ request.GET.max_price }}">
+                        </div>
+                    </div>
+                    
+                    <!-- Stock Filter -->
+                    <div class="col-md-3">
+                        <label class="form-label">Stock Status</label>
+                        <select name="stock_status" class="form-select">
+                            <option value="">All</option>
+                            <option value="in_stock" {% if request.GET.stock_status == 'in_stock' %}selected{% endif %}>In Stock</option>
+                            <option value="out_of_stock" {% if request.GET.stock_status == 'out_of_stock' %}selected{% endif %}>Out of Stock</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Rating Filter -->
+                    <!-- <div class="col-md-3">
+                        <label class="form-label">Minimum Rating</label>
+                        <select name="min_rating" class="form-select">
+                            <option value="">Any Rating</option>
+                            <option value="4" {% if request.GET.min_rating == '4' %}selected{% endif %}>4+ Stars</option>
+                            <option value="3" {% if request.GET.min_rating == '3' %}selected{% endif %}>3+ Stars</option>
+                            <option value="2" {% if request.GET.min_rating == '2' %}selected{% endif %}>2+ Stars</option>
+                        </select>
+                    </div> -->
+                    
+                    <!-- Sort Options -->
+                    <div class="col-md-3">
+                        <label class="form-label">Sort By</label>
+                        <select name="sort" class="form-select">
+                            <option value="">Default</option>
+                            <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>Price: Low to High</option>
+                            <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>Price: High to Low</option>
+                            <!-- <option value="rating_desc" {% if request.GET.sort == 'rating_desc' %}selected{% endif %}>Highest Rated</option> -->
+                        </select>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Apply Filters</button>
+                        <a href="{% url 'product_list' category.slug %}" class="btn btn-secondary">Clear Filters</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% for product in products %}
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.title }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.title }}</h5>
+                <p class="card-text">{{ product.description }}</p>
+                <p class="card-text"><strong>{{ product.get_formatted_price }}</strong></p>
+                <p class="card-text text-muted">Available: {{ product.stock }}</p>
+                {% if product.stock > 0 %}
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'add_to_cart' product.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                {% else %}
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="btn btn-primary">Add to Cart</a>
+                {% endif %}
+            {% else %}
+                <button class="btn btn-secondary" disabled>Out of Stock</button>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center">
+        <p>No products available in this category.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
