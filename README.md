@@ -54,12 +54,12 @@ Sportify_EcommerceWebsite/
 │
 ├── Sportify_Django/
 │   ├── Sportify1/
-│   ├── user_app/
-│   ├── cart_app/
-│   ├── media/
-│   ├── static/
-│   ├── templates/
-│   └── manage.py
+│   │      ├── user_app/
+│   │      ├── cart_app/
+│   │      ├── media/
+│   │      ├── static/
+│   │      ├── templates/
+│   │      └── manage.py
 │   └── requirements.txt
 ```
 
