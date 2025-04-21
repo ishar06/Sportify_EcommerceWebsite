@@ -85,12 +85,12 @@ cd Sportify_Flask
 python -m venv venv
 ```
 
-# On Windows
+### On Windows
 ```bash
 venv\Scripts\activate
 ```
 
-# On macOS/Linux
+### On macOS/Linux
 ```bash
 source venv/bin/activate
 ```
@@ -119,12 +119,12 @@ cd Sportify_Django
 python -m venv venv
 ```
 
-# On Windows
+### On Windows
 ```bash
 venv\Scripts\activate
 ```
 
-# On macOS/Linux
+### On macOS/Linux
 ```bash
 source venv/bin/activate
 ```
