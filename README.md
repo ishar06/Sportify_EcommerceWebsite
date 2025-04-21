@@ -80,14 +80,26 @@ Sportify_EcommerceWebsite/
 
 ```bash
 cd Sportify_Flask
+```
+```bash
 python -m venv venv
+```
 
 # On Windows
+```bash
 venv\Scripts\activate
-# On macOS/Linux
-source venv/bin/activate
+```
 
+# On macOS/Linux
+```bash
+source venv/bin/activate
+```
+
+```bash
 pip install -r requirements.txt
+```
+
+```bash
 python app.py
 ```
 ADMIN LOGIN CREDENTIALS:
@@ -101,16 +113,32 @@ Password ==> admin123
 
 ```bash
 cd Sportify_Django
+```
+
+```bash
 python -m venv venv
+```
 
 # On Windows
+```bash
 venv\Scripts\activate
-# On macOS/Linux
-source venv/bin/activate
+```
 
+# On macOS/Linux
+```bash
+source venv/bin/activate
+```
+
+```bash
 pip install -r requirements.txt
+```
+```bash
 cd Sportify1/
+```
+```bash
 python manage.py migrate
+```
+```bash
 python manage.py runserver
 ```
 ADMIN LOGIN CREDENTIALS:
