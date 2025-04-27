@@ -50,7 +50,7 @@ Sportify_EcommerceWebsite/
 │   ├── templates/
 │   ├── static/
 │   ├── app.py
-│   └──requirements.txt
+│   └── requirements.txt
 │
 ├── Sportify_Django/
 │   ├── Sportify1/
