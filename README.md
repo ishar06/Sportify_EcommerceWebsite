@@ -49,8 +49,8 @@ Sportify_EcommerceWebsite/
 ├── Sportify_Flask/
 │   ├── templates/
 │   ├── static/
-│   └── app.py
-│   └── requirements.txt
+│   ├── app.py
+│   └──requirements.txt
 │
 ├── Sportify_Django/
 │   ├── Sportify1/
