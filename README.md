@@ -61,6 +61,7 @@ Sportify_EcommerceWebsite/
 │   │      ├── templates/
 │   │      └── manage.py
 │   └── requirements.txt
+│ 
 ├── README.md            # Documentation and Setup
 └── LICENSE              # MIT License
 ```
