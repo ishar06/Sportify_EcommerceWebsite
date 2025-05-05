@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title_block %}Trekking | Sportify{% endblock %}
+
+{% block styles %}
+<style>
+    .product-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 10px;
+        overflow: hidden;
+        background: white;
+    }
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+    .product-image {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
+    .card-body {
+        text-align: center;
+        object-fit: cover;
+        overflow: hidden;
+    }
+    .price {
+        font-size: 18px;
+        font-weight: bold;
+        color: #d9534f;
+    }
+    .btn-sm {
+        padding: 0.25rem 0.8rem;
+        font-size: 0.875rem;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-outline-dark:hover {
+        background-color: #343a40;
+        color: white;
+    }
+    
+    .btn-dark:hover {
+        opacity: 0.9;
+    }
+    
+    .gap-2 {
+        gap: 0.5rem !important;
+    }
+</style>
+{% endblock %}
+
+{% block main_block %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Shop Trekking Products</h2>
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4 col-lg-3 mb-4">
+            <div class="card product-card">
+                <img src="{{ product.image }}" class="card-img-top product-image" alt="{{ product.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.title }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="price">{{ product.price }}</p>
+                    <p class="text-muted">Stock: {{ product.stock }}</p>
+                    <div class="d-flex justify-content-center gap-2">
+                        <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST" style="display: inline;">
+                            <button type="submit" class="btn btn-outline-dark btn-sm">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

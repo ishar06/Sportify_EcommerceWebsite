@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title_block %}Add Product | Admin{% endblock %}
+
+{% block styles %}
+<style>
+    .form-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 30px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+    
+    .form-title {
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #000;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .btn-actions {
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block main_block %}
+<div class="container">
+    <div class="form-container">
+        <h2 class="form-title">Add New Product</h2>
+        
+        <form action="{{ url_for('add_product') }}" method="POST">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="category">Category*</label>
+                        <select class="form-control" id="category" name="category" required>
+                            <option value="" selected disabled>Select Category</option>
+                            {% for category in categories %}
+                                <option value="{{ category }}">{{ category|capitalize }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="title">Product Title*</label>
+                        <input type="text" class="form-control" id="title" name="title" required>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description*</label>
+                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="price">Price* (without /-)</label>
+                        <input type="text" class="form-control" id="price" name="price" placeholder="e.g. 1500" required>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="stock">Stock*</label>
+                        <input type="number" class="form-control" id="stock" name="stock" min="0" required>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="image">Image Path*</label>
+                <input type="text" class="form-control" id="image" name="image" 
+                       placeholder="e.g. static/images/product.jpg" required>
+                <small class="form-text text-muted">Path must start with 'static/images/'</small>
+            </div>
+            
+            <div class="btn-actions">
+                <button type="submit" class="btn btn-success">Add Product</button>
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary ml-2">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

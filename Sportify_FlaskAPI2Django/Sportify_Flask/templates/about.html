@@ -1,0 +1,329 @@
+{% extends "base.html" %}
+
+{% block title_block %}About Us | Sportify{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --dark: #2D3436;
+            --light: #F9F9F9;
+            --accent: #FFE66D;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, rgba(5, 51, 63, 0.95), rgba(82, 129, 145, 0.98)),
+                        url('https://images.unsplash.com/photo-1579952363873-27f3bade9f55') center/cover fixed;
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* About Hero */
+        .about-hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideRight 0.8s 0.5s forwards;
+        }
+
+        .hero-text {
+            font-size: 1.2rem;
+            max-width: 600px;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateX(-30px);
+            animation: slideRight 0.8s 0.7s forwards;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-member {
+            background: rgba(205, 11, 108, 0.218);
+            border-radius: 20px;
+            padding: 4rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transform-style: preserve-3d;
+            transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            opacity: 0;
+            transform: translateY(50px) rotateX(45deg);
+            animation: cardEnter 0.8s forwards;
+        }
+
+        .team-member:nth-child(1) { animation-delay: 0.4s; }
+        .team-member:nth-child(2) { animation-delay: 0.6s; }
+        .team-member:nth-child(3) { animation-delay: 0.8s; }
+        .team-member:nth-child(4) { animation-delay: 1s; }
+
+        .team-member:hover {
+            transform: translateY(-15px) rotateX(0);
+            box-shadow: 0 25px 40px rgba(0,0,0,0.3);
+        }
+
+        .member-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            margin: -100px auto 1.5rem;
+            border: 4px solid var(--secondary);
+            overflow: hidden;
+            position: relative;
+            transition: 0.4s;
+        }
+
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: 0.4s;
+        }
+
+        .team-member:hover .member-image img {
+            filter: grayscale(0);
+            transform: scale(1.1);
+        }
+
+        .member-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .member-role {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .member-bio {
+            color: #ddd;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        /* Animated Background Elements */
+        .floating-elements {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .floating-element {
+            position: absolute;
+            opacity: 0.5;
+            animation: float 10s infinite linear;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-50px) rotate(10deg); }
+            50% { transform: translateY(50px) rotate(-10deg); }
+            75% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        /* Animations */
+        @keyframes slideRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes cardEnter {
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+{% endblock %}
+
+
+
+
+{% block main_block %}
+
+<!-- About Hero -->
+<section class="about-hero">
+    <div class="floating-elements">
+        <div class="floating-element" style="left: 10%; top: 20%;">
+            <i class="fas fa-futbol fa-3x"></i>
+        </div>
+        <!-- Add more floating elements if needed -->
+    </div>
+    
+    <div class="hero-content">
+        <h1 class="hero-title">Redefining Sports Excellence</h1>
+        <p class="hero-text">
+            At Sportify, we're revolutionizing the sports industry through innovation, passion, 
+            and cutting-edge technology. Our team of experts brings decades of combined experience 
+            to create unforgettable sporting experiences.
+        </p>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="team-section">
+    <div class="team-grid">
+        <!-- Team Member 1 -->
+        <div class="team-member">
+            <div class="member-image">
+                <img src="../static/images/ishar.jpeg" alt="Ishardeep Singh">
+            </div>
+            <h3 class="member-name">Ishardeep Singh</h3>
+            <p class="member-role">Team Leader</p>
+            <p class="member-bio">I’m a first-year B.Tech student at Chitkara University, specializing in Computer Science with a focus on AI.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/ishardeep-singh-743789311/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/ishar06" target="_blank"><i class="fab fa-github" target="_blank"></i></a>
+                <a href="#"><i class="fas fa-globe"></i></a>
+            </div>
+        </div>
+
+        <!-- Team Member 2 -->
+        <div class="team-member">
+            <div class="member-image">
+                <img src="../static/images/aryan.jpeg" alt="Aryan Verma">
+            </div>
+            <h3 class="member-name">Aryan Verma</h3>
+            <p class="member-role">Team member</p>
+            <p class="member-bio">I’m Aryan Verma, a first-year B.Tech student at Chitkara University.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/aryan-verma-638594320/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/Aryan-verma-ai" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fas fa-globe"></i></a>
+            </div>
+        </div>
+
+        <!-- Team Member 3 -->
+        <div class="team-member">
+            <div class="member-image">
+                <img src="../static/images/daman.jpeg" alt="Damanjeet singh">
+            </div>
+            <h3 class="member-name">Damanjeet Singh</h3>
+            <p class="member-role">Team Member</p>
+            <p class="member-bio">I’m Damanjeet Singh, a first-year B.Tech student at Chitkara University.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/damanjeet-singh-834596316/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/daman-max" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fas fa-globe"></i></a>
+            </div>
+        </div>
+
+        <!-- Team Member 4 -->
+        <div class="team-member">
+            <div class="member-image">
+                <img src="../static/images/madhav.jpeg" alt="Madhav Garg">
+            </div>
+            <h3 class="member-name">Madhav Garg</h3>
+            <p class="member-role">Team Member</p>
+            <p class="member-bio">I’m Madhav Garg, a first-year B.Tech student at Chitkara University.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/madhav-garg-059b4b339/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/madhav205" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fas fa-globe"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+    // Intersection Observer for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) {
+                entry.target.style.animationPlayState = 'running';
+            }
+        });
+    });
+
+    document.querySelectorAll('.team-member').forEach(member => {
+        observer.observe(member);
+    });
+</script>
+{% endblock %}

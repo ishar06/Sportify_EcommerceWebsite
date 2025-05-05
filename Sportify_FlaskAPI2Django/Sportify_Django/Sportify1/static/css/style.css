@@ -1,0 +1,176 @@
+video {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    
+}
+.transparent-jumbotron {
+    background-color: rgba(255, 255, 255, 0.7); /* white with 70% opacity */
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+.filter-card {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.filter-card .card-body {
+    padding: 1.5rem;
+}
+
+.filter-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Form label styling */
+.form-label {
+    color: #dc3545 !important; /* Red color for form labels */
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+/* Specific styling for login and register forms */
+#loginForm .form-label,
+#registerForm .form-label {
+    color: #dc3545 !important; /* Bright red */
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* Make sure modal text is visible */
+.modal-content {
+    background-color: white;
+}
+
+.modal-body {
+    color: #212529; /* Dark color for input text */
+}
+
+.modal-footer p {
+    color: #212529;
+}
+
+/* Input text color */
+.form-control {
+    color: #212529;
+}
+
+/* Ensure form validation messages are visible */
+.invalid-feedback {
+    color: #dc3545;
+    display: block;
+}
+
+.input-group {
+    gap: 10px;
+}
+
+.form-select, .form-control {
+    height: 38px;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Card adjustments for index page */
+.product-card {
+    height: 100%;
+    transition: transform 0.3s ease;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .product-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+  } 
+  
+  /* Make cards equal height in rows */
+  .row-eq-height {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .row-eq-height > [class*="col-"] {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .row-eq-height .card {
+    flex: 1;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 767.98px) {
+    .product-card .card-img-top {
+      height: 100px;
+    }
+  }
+
+.modal-body {
+    color: #212529; /* Black color for other text */
+}
+
+.modal-footer p {
+    color: #212529; /* Black color for footer text */
+}
+
+.form-check-label {
+    color: #212529; /* Black color for checkbox labels */
+}
+
+/* Modal styling for better contrast */
+#loginModal .modal-content,
+#registerModal .modal-content {
+    background-color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+#loginModal .modal-body,
+#registerModal .modal-body {
+    background-color: #ffffff;
+}
+
+/* Modal title styling */
+.modal-title {
+    color: #212529 !important;
+    font-weight: 600;
+}
+
+#loginModal .modal-header,
+#registerModal .modal-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Enhanced form styling */
+#loginForm input,
+#registerForm input {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+}
+
+/* Enhanced form styling */
+#loginForm input,
+#registerForm input {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+}
+
+/* Form validation message styling */
+.error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}Blogs | Sportify{% endblock %}
+
+{% block extra_css %} 
+    <style>
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;  
+        }
+
+        .card {
+            height: 100%;  
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-body {
+            flex-grow: 1; 
+        }
+
+        .blogPosts .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .blogPosts .col-md-4 {
+            flex: 1 0 30%; 
+            max-width: 30%; 
+            margin-bottom: 20px;
+        }
+
+        /* Make card size responsive */
+        @media (max-width: 768px) {
+            .blogPosts .col-md-4 {
+                flex: 1 0 100%; 
+                max-width: 100%;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="blogPosts container my-5">
+    <h2 class="text-center mb-4">Latest Blogs</h2>
+    <div class="row">
+        
+        <!-- Blog Post 1 -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <img src="https://tdsportswear.com/wp-content/uploads/2025/01/d52-1170x658.png" class="card-img-top" alt="Blog Image">
+                <div class="card-body">
+                    <h5 class="card-title">The Best Sports Gear for 2025</h5>
+                    <p class="card-text">Explore the top sports gear that will enhance your performance and comfort in 2025.</p>
+                    <a href="https://tdsportswear.com/blog/top-6-activewear-trends-in-2025-upgrade-your-sportswear-wardrobe/" target="_blank" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Post 2 -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <img src="https://hips.hearstapps.com/hmg-prod/images/running-is-one-of-the-best-ways-to-stay-fit-royalty-free-image-1036780592-1553033495.jpg?crop=0.88976xw:1xh;center,top&resize=1200:*" class="card-img-top" alt="Blog Image">
+                <div class="card-body">
+                    <h5 class="card-title">10 Tips to Stay Fit and Active</h5>
+                    <p class="card-text">Discover practical tips to maintain a healthy and active lifestyle every day.</p>
+                    <a href="https://www.healthline.com/health/staying-healthy" target="_blank" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Post 3 -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <img src="https://media.licdn.com/dms/image/D4E12AQEBCnNn5wwhlQ/article-cover_image-shrink_720_1280/0/1692776746573?e=2147483647&v=beta&t=yM8ERadd0HP7bl2XM_aBtBk0B54kXHhLM0-5VJe3eSU" class="card-img-top" alt="Blog Image">
+                <div class="card-body">
+                    <h5 class="card-title">Strength Training: A Beginner's Guide</h5>
+                    <p class="card-text">Learn the essentials of strength training and start your fitness journey today.</p>
+                    <a href="https://www.healthline.com/health/how-to-start-lifting-weights" target="_blank" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

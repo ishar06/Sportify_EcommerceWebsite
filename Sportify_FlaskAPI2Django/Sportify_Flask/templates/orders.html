@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title_block %}
+Order History - Sportify
+{% endblock %}
+
+{% block main_block %}
+<div class="container my-5">
+    <h2 class="mb-4">Order History</h2>
+
+    {% if orders %}
+    {% for order in orders %}
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-white">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <h5 class="mb-0">Order #{{ order.id }}</h5>
+                </div>
+                <div class="col-md-4 text-md-center">
+                    <span class="text-muted">{{ order.order_date.strftime('%B %d, %Y') }}</span>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <span
+                        class="badge {% if order.status == 'Delivered' %}bg-success{% elif order.status == 'Pending' %}bg-warning{% else %}bg-primary{% endif %}">
+                        {{ order.status }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    {% for item in order.items %}
+                    <div class="d-flex mb-3">
+                        <img src="{{ item.image_url }}" alt="{{ item.product_name }}" class="me-3"
+                            style="width: 80px; height: 80px; object-fit: cover;">
+                        <div>
+                            <h6 class="mb-1">{{ item.product_name }}</h6>
+                            <p class="mb-1 text-muted">Quantity: {{ item.quantity }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-4 border-start">
+                    <h6 class="mb-3">Order Details</h6>
+                    <p class="mb-2"><strong>Total Amount:</strong> ₹{{ "%.2f"|format(order.total_amount) }}</p>
+                    <p class="mb-2"><strong>Payment Method:</strong> {{ order.payment_method }}</p>
+                    <p class="mb-0"><strong>Shipping Address:</strong><br>{{ order.shipping_address }}</p><br>
+                    <h5 class="text-primary">Order ID: {{ order.id }}</h5><br>
+                    <p><strong>Order Date:</strong> {{ order.order_date.strftime('%Y-%m-%d') }}</p>
+                    <p><strong>Order Time:</strong> {{ order.order_date.strftime('%H:%M:%S') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="text-center py-5">
+        <i class="fas fa-shopping-bag fa-3x mb-3 text-muted"></i>
+        <h4>No orders yet</h4>
+        <p class="text-muted">Your order history will appear here once you make a purchase.</p>
+        <a href="{{ url_for('index') }}" class="btn btn-primary">Start Shopping</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

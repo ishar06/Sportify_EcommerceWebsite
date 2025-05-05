@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}  
+
+{% block title %}Sportify | Home{% endblock %}
+
+{% block extra_css %}
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: radial-gradient(circle, #dc3545 0%, #dc3545 30%, #ffffff 70%, #ffffff 100%);
+    }
+    /* Smooth scaling and shadow on hover */
+#categories .card {
+    transition: 
+        transform 0.3s cubic-bezier(0.4,0,0.2,1),
+        box-shadow 0.3s cubic-bezier(0.4,0,0.2,1),
+        background-color 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    background-color: #fff;
+}
+
+#categories .card:hover {
+    transform: scale(1.08); /* Zoom in */
+    box-shadow: 0 8px 32px rgba(44, 62, 80, 0.18); /* Deeper shadow */
+    background-color: #f8f9fa; /* Subtle background highlight */
+    z-index: 2;
+}
+
+
+
+</style>
+
+{% endblock %}
+
+
+
+
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+<div class="video-jumbotron position-relative d-flex align-items-center justify-content-center rounded" style="height: 60vh; overflow: hidden;">
+    <!-- Background Video -->
+    <video autoplay muted loop playsinline class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover; z-index: -1;">
+        <source src="{% static 'videos/vid.mp4' %}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Jumbotron Content -->
+    <div class="bg-light bg-opacity-75 p-5 rounded text-center" style="max-width: 700px; z-index: 1;">
+        <h1 class="display-4"><strong>Welcome to Sportify!</strong></h1>
+        <p class="lead">Your one-stop shop for all sports equipment.</p>
+        <hr class="my-4">
+        <p>Explore our wide range of sports equipment and gear for all your sporting needs.</p>
+        <a class="btn btn-primary btn-lg" href="#categories" role="button">Shop Now</a>
+    </div>
+</div>
+
+
+
+<div id="categories" class="row  m-5 p-4">
+    <h2 class="text-center mb-4">Shop by Category</h2>
+    
+    {% for category in categories %}
+    <div class="col-md-3 mb-4">
+        <div class="card h-100 ">
+            {% if category.image %}
+                <div class="card-img-top" style="height: 230px; background-image: url('{{ category.image.url }}'); background-size: cover; background-position: center;"></div>
+            {% else %}
+                <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 150px;">
+                    <span>{{ category.name }}</span>
+                </div>
+            {% endif %}
+            <div class="card-body text-center">
+                <h5 class="card-title">{{ category.name }}</h5>
+                <a href="{% url 'product_list' category.slug %}" class="btn btn-outline-primary">View Products</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="row mt-5">
+    <h2 class="text-center mb-4">Featured Products</h2>
+    
+    {% for product in featured_products %}
+    <div class="col-md-3 mb-4">
+        <div class="card h-100 ">
+            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.title }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.title }}</h5>
+                <p class="card-text">{{ product.description }}</p>
+                <p class="card-text"><strong>{{ product.get_formatted_price }}</strong></p>
+                <p class="card-text text-muted">Available: {{ product.stock }}</p>
+                {% if product.stock > 0 %}
+                    {% if user.is_authenticated %}
+                        <form method="post" action="{% url 'add_to_cart' product.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        </form>
+                    {% else %}
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="btn btn-primary">Add to Cart</a>
+                    {% endif %}
+                {% else %}
+                    <button class="btn btn-secondary" disabled>Out of Stock</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center">
+        <p>No featured products available.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Check if there are any error messages and show the appropriate modal
+    document.addEventListener('DOMContentLoaded', function() {
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' and 'password' in message|lower or 'email' in message|lower %}
+                    // Show login modal if there are login-related errors
+                    var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                    loginModal.show();
+                {% elif message.tags == 'error' and 'name' in message|lower or 'phone' in message|lower %}
+                    // Show register modal if there are registration-related errors
+                    var registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
+                    registerModal.show();
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    });
+</script>
+{% endblock %}

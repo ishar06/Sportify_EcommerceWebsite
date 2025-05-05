@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title_block %}Sportify{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+
+{% endblock %}
+
+{% block main_block %}
+    <script>
+        if (!sessionStorage.getItem('animationShown')) {
+            window.location.href = "{{ url_for('animation') }}";
+        }
+    </script>
+    <!-- Video Section -->
+    <section class="hero">
+        <video autoplay muted loop class="hero-video">
+            <source src="../static/videos/vid.mp4" type="video/mp4">
+        </video>
+        <div class="hero-content">
+            <h1>Elevate Your Performance</h1>
+            <p>Premium Sports Equipment & Apparel</p>
+        </div>
+    </section>
+
+    <!-- Bootstrap Cards Section -->
+    <section>
+        <div class="container mt-4">
+            <div class="row justify-content-center">
+                <div class="col-md-3 mb-4">
+                    <a href="{{url_for('basketball')}}" class="card shadow-sm text-center">
+                        <img src="../static/images/basketball.jpg" alt="Basketball">
+                        <h5 class="card-title">Basketball</h5>
+                    </a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <a href="{{url_for('football')}}" class="card shadow-sm text-center">
+                        <img src="../static/images/football.jpg" alt="Football">
+                        <h5 class="card-title">Football</h5>
+                    </a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <a href="{{url_for('cricket')}}" class="card shadow-sm text-center">
+                        <img src="../static/images/cricket.jpg" alt="Cricket">
+                        <h5 class="card-title">Cricket</h5>
+                    </a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <a href="{{url_for('volleyball')}}" class="card shadow-sm text-center">
+                        <img src="../static/images/volleyball.jpg" alt="Volleyball">
+                        <h5 class="card-title">Volleyball</h5>
+                    </a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <a href="{{url_for('badminton')}}" class="card shadow-sm text-center">
+                        <img src="../static/images/badminton.jpg" alt="Badminton">
+                        <h5 class="card-title">Badminton</h5>
+                    </a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <a href="{{url_for('tabletennis')}}" class="card shadow-sm text-center">
+                        <img src="../static/images/tabletennis.jpg" alt="Table Tennis">
+                        <h5 class="card-title">Table Tennis</h5>
+                    </a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <a href="{{url_for('hockey')}}" class="card shadow-sm text-center">
+                        <img src="../static/images/hockey.avif" alt="Hockey">
+                        <h5 class="card-title">Hockey</h5>
+                    </a>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <a href="{{url_for('trekking')}}" class="card shadow-sm text-center">
+                        <img src="../static/images/trekking.jpg" alt="Trekking">
+                        <h5 class="card-title">Trekking</h5>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
