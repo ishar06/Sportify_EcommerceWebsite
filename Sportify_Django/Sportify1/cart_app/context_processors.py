@@ -12,6 +12,5 @@ def categories_processor(request):
     return {'categories': categories}
 
 def featured_products(request):
-    # Get 8 random products for the featured section
     featured = list(Product.objects.all().order_by('?')[:8])
     return {'featured_products': featured}
