@@ -2,12 +2,79 @@
 
 {% block title %}{{ category.name }} | Sportify{% endblock %}
 
+{% load static %}
+
 {% block extra_css %}
-<link rel="stylesheet" href="../../static/css/style.css">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+        overflow-x: hidden;
+    }
+
+    .background-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* semi-transparent overlay */
+        z-index: -1;
+    }
+
+    .content-wrapper {
+        position: relative;
+        z-index: 1;
+        padding: 2rem;
+        min-height: 100vh;
+        background-color: rgba(255, 255, 255, 0.85); /* main content area with contrast */
+        backdrop-filter: blur(5px);
+        border-radius: 12px;
+        margin: 2rem;
+    }
+
+    h1 {
+    text-align: left;
+    margin-bottom: 2rem;
+    font-size: 3rem;
+    color: #000; /* Use light text for contrast */
+    text-shadow:
+        -1px -1px 2px #fff,  
+        1px -1px 2px #fff,   
+        -1px 1px 2px #fff,   
+        1px 1px 2px #fff;    
+    }
+
+</style>
+
+{% if category.name == "Basketball" %}
+<style>body { background-image: url('https://images.unsplash.com/photo-1525876902033-8da51fbe1e59?q=80&w=2878&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); }</style>
+{% elif category.name == "Football" %}
+<style>body { background-image: url('https://images.unsplash.com/photo-1459865264687-595d652de67e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); }</style>
+{% elif category.name == "Cricket" %}
+<style>body { background-image: url('https://images.unsplash.com/photo-1625401586060-f12be3d7cc57?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); }</style>
+{% elif category.name == "Volleyball" %}
+<style>body { background-image: url('https://images.unsplash.com/photo-1557467501-0e35f8438de7?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); }</style>
+{% elif category.name == "Badminton" %}
+<style>body { background-image: url('https://images.unsplash.com/photo-1708312604109-16c0be9326cd?q=80&w=3174&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); }</style>
+{% elif category.name == "Table Tennis" %}
+<style>body { background-image: url('https://images.unsplash.com/photo-1646978567314-32cfd5a8854e?q=80&w=3055&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); }</style>
+{% elif category.name == "Hockey" %}
+<style>body { background-image: url('https://images.unsplash.com/photo-1551241784-c1ec0c6906ae?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); }</style>
+{% elif category.name == "Trekking" %}
+<style>body { background-image: url('https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); }</style>
+{% endif %}
+
 {% endblock %}
 
-
 {% block content %}
+
 <h1 class="mb-4">{{ category.name }}</h1>
 
 <!-- Filter Button -->

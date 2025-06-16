@@ -133,8 +133,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             {% for category in categories %}
-                            <li><a class="dropdown-item" href="{% url 'product_list' category.slug %}">{{ category.name
-                                    }}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'product_list' category.slug %}">{{ category.name}}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
